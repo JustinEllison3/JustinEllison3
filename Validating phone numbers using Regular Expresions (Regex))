@@ -1,0 +1,50 @@
+using System.Text.RegularExpressions; // this is needed to use Regex
+using System;
+
+
+/*  VALID PHONE NUMBER FORMATS
+    (123) 456-7890
+    123-456-7890
+ */
+
+ /* INVALID
+     123 456 7890
+     (123)-456-7890
+     (123)-456 7890
+     1234567890
+     123456789
+ */
+
+
+namespace RegularExpressions
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            bool isValid = false; // this is to keep the program in a loop
+
+            Regex type1 = new Regex(@"\(\d{3}\)\s\d{3}-\d{4}"); // first format (xxx) xxx-xxxx
+            Regex type2 = new Regex(@"\d{3}-\d{3}-\d{4}");      // second format xxx-xxx-xxxx
+
+            while (isValid == false) {
+                Console.WriteLine("Enter your phone number as (xxx) xxx-xxxx or xxx-xxx-xxxx: ");
+                string userPhone = Console.ReadLine(); //gets user input
+
+                if (type1.IsMatch(userPhone))
+                {
+                    Console.WriteLine("Your phone number is: " + userPhone );
+                    isValid = true; 
+                    break;
+                }
+                else if (type2.IsMatch(userPhone)) {
+                    Console.WriteLine("Your phone number is: " + userPhone);
+                    isValid = true;
+                    break;
+                }
+                else { Console.WriteLine("That is not a valid phone number."); }
+                    
+            }
+        }
+    }
+}
